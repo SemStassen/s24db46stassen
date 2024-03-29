@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1= title
+  p Rows = #{query.rows} | Cols=#{query.cols}
+
+  - 
+    const rows = Number(query.rows);
+    const cols = Number(query.cols);
+    function calcMin(num1, num2) {
+      return Math.min(num1, num2) + 1;
+    }
+
+  if (!Number.isInteger(rows) || !Number.isInteger(cols))
+    p One or both of the values are not an integers
+  else if (rows < 3 || rows > 13)
+    p Rows is either smaller than 3 or bigger than 13
+  else if (cols < 3 || cols > 13)
+    p Cols is either smaller than 3 or bigger than 13
+  else 
+    table#outer 
+      - for(let i=0; i<rows; i++) {
+          tr#middle
+            - for(let j=0; j<cols; j++) {
+                td= calcMin(i, j)
+            - } 
+      - }  
+  -
+
+  
+  
+
+

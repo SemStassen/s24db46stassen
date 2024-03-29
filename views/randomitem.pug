@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  - 
+    const image_names = ["fantail", "fantail-2", "jacobin", "jacobin-2", "archangel"]
+  - for (let i = 0; i < 3; i++) {
+    - 
+      const image_index = Math.floor(Math.random() * 5);
+    img(src=`/images/${image_names[image_index]}.png`, alt=`${image_names[image_index]}`, width="300", height="300")
+  - }
+
