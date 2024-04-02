@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+
+  - 
+    const items = results
+
+  div.container-fluid
+    div.row
+      each pigeon, index in items
+        div(class="col-sm-2", onClick=`buy(${index})`)
+          p Breed: #{pigeon.breed}
+          p Gender: #{pigeon.gender}
+          p Price: #{pigeon.price}
+  script. 
+    function buy(index) {
+      alert(`You purchased item ${index}`)
+    }
+
+
