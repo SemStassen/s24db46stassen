@@ -1,8 +1,14 @@
-var pigeon = require('../models/pigeon');
+var pigeons = require('../models/pigeon');
 
 // List of all pigeons
-exports.pigeon_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: pigeon list');
+exports.pigeon_list = async function(req, res) {
+    try {
+        const foundPigeons = await pigeons.find();
+        res.send(foundPigeons);
+    } catch(err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`)
+    }
 };
 // for a specific pigeon.
 exports.pigeon_detail = function(req, res) {
