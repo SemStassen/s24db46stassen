@@ -69,7 +69,8 @@ async function recreateDB() {
       console.error(err);
     });
 }
-let reseed = true;
+// set the false to stop reseeding on restart
+let reseed = false;
 if (reseed) {
   recreateDB();
 }
