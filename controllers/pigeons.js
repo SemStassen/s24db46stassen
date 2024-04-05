@@ -3,8 +3,8 @@ var Pigeon = require("../models/pigeon");
 // List of all pigeons
 exports.pigeon_list = async function (req, res) {
   try {
-    const foundPigeons = await Pigeon.find();
-    res.send(foundPigeons);
+    const result = await Pigeon.find();
+    res.send(result);
   } catch (err) {
     res.status(500);
     res.send(`{"error": ${err}}`);
@@ -14,9 +14,10 @@ exports.pigeon_list = async function (req, res) {
 // for a specific pigeon.
 exports.pigeon_detail = async function (req, res) {
   console.log("detail" + req.params.id);
+
   try {
-    const pigeon = await Pigeon.findById(req.params.id);
-    res.send(pigeon);
+    const result = await Pigeon.findById(req.params.id);
+    res.send(result);
   } catch (error) {
     res.status(500);
     res.send(`{"error": document for id ${req.params.id} not found`);
@@ -31,6 +32,7 @@ exports.pigeon_create_post = async function (req, res) {
   document.breed = req.body.breed;
   document.gender = req.body.gender;
   document.price = req.body.price;
+
   try {
     let result = await document.save();
     res.send(result);
@@ -41,12 +43,41 @@ exports.pigeon_create_post = async function (req, res) {
 };
 
 // Handle pigeon delete from on DELETE.
-exports.pigeon_delete = function (req, res) {
-  res.send("NOT IMPLEMENTED: pigeon delete DELETE " + req.params.id);
+exports.pigeon_delete = async function (req, res) {
+  console.log("delete " + req.params.id);
+
+  try {
+    const result = await Pigeon.findByIdAndDelete(req.params.id);
+    console.log("Removed " + result);
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": Error deleting ${err}}`);
+  }
 };
+
 // Handle pigeon update form on PUT.
-exports.pigeon_update_put = function (req, res) {
-  res.send("NOT IMPLEMENTED: pigeon update PUT" + req.params.id);
+exports.pigeon_update_put = async function (req, res) {
+  console.log(
+    `update on id ${req.params.id} with body ${JSON.stringify(req.body)}`
+  );
+
+  try {
+    let toUpdate = await Pigeon.findById(req.params.id);
+
+    // Do updates of properties
+    if (req.body.breed) toUpdate.breed = req.body.breed;
+    if (req.body.price) toUpdate.price = req.body.price;
+    if (req.body.gender) toUpdate.gender = req.body.gender;
+
+    let result = await toUpdate.save();
+
+    console.log("Sucess " + result);
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+  }
 };
 
 // VIEWS
@@ -61,5 +92,17 @@ exports.pigeon_view_all_page = async function (req, res) {
   } catch (err) {
     res.status(500);
     res.send(`{"error": ${err}}`);
+  }
+};
+
+// Handle a show one view with id specified by query
+exports.pigeon_view_one_page = async function (req, res) {
+  console.log("single view for id " + req.query.id);
+  try {
+    result = await Pigeon.findById(req.query.id);
+    res.render("pigeondetail", { title: "Pigeon Detail", toShow: result });
+  } catch (err) {
+    res.status(500);
+    res.send(`{'error': '${err}'}`);
   }
 };

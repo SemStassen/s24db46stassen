@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1= title
+    - let pigeonid = toShow._id
+    - let breed = toShow.breed
+    - let price = toShow.price
+    - let gender = toShow.gender
+    div
+        div.row
+            div(class='pigeonAttr mr-3') Pigeon ID is:
+            div #{pigeonid}
+        div.row
+            div(class='pigeonAttr mr-3') Pigeon Breed is:
+            div #{breed}
+        div.row
+            div(class='pigeonAttr mr-3') Pigeon Price is:
+            div #{price}
+        div.row
+            div(class='pigeonAttr mr-3') Pigeon Gender is:
+            div #{gender}
