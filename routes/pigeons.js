@@ -17,10 +17,10 @@ router.get("/", pigeon_controller.pigeon_view_all_page);
 // GET detail pigeon page
 router.get("/detail", pigeon_controller.pigeon_view_one_page);
 // GET create costume page
-router.get("/create", pigeon_controller.pigeon_create_page);
+router.get("/create", secured, pigeon_controller.pigeon_create_page);
 // GET create update page
 router.get("/update", secured, pigeon_controller.pigeon_update_page);
 // GET delete costume page
-router.get("/delete", pigeon_controller.pigeon_delete_page);
+router.get("/delete", secured, pigeon_controller.pigeon_delete_page);
 
 module.exports = router;
