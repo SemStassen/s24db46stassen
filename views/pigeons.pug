@@ -6,14 +6,23 @@ block content
   - const items = results
 
   div.container-fluid
+    div(class="row mb-4")
+      a(href="/pigeons/create")
+        button(class="btn btn-success") Create Pigeon
     div(class="row")
       each pigeon, index in items
-        - let destination = `dispatch(\"/pigeons/update?id=${pigeon._id}\")`
+        - let detailPigeon = `dispatch(\"/pigeons/detail?id=${pigeon._id}\")`
+        - let updatePigeon = `dispatch(\"/pigeons/update?id=${pigeon._id}\")`
+        - let deletePigeon = `dispatch(\"/pigeons/delete?id=${pigeon._id}\")`
         div(class="col-sm-2")
           p Breed: #{pigeon.breed}
           p Gender: #{pigeon.gender}
           p Price: #{pigeon.price}
-          button(class="btn btn-primary", onclick=destination) Update
+
+          div(class="d-flex flex-column gap-2")
+            button(class="btn btn-primary", onclick=detailPigeon) Detail
+            button(class="btn btn-warning", onclick=updatePigeon) Update
+            button(class="btn btn-danger", onclick=deletePigeon) Delete
 
     script.
       function dispatch(path){
