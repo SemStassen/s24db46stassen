@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    h1= title
+
+    if (toShow == null)
+        h2 No instance to update
+    else 
+        - let pigeonid = toShow._id
+        - let breed = toShow.breed
+        - let price = toShow.price
+        - let gender = toShow.gender
+        div.mb-3
+            div(class='pigeonAttr mr-3') Pigeon ID is:
+            div #{pigeonid}
+        form(id='PigeonForm', action=`/resource/pigeons/${pigeonid}`, method="PUT")
+            div.form-group
+                label.pigeonAttr(for='breed') Pigeon breed
+                input#breed(type='text', name='breed', value=breed)
+            div.form-group
+                label.pigeonAttr(for='price') Pigeon price
+                input#price(type='number', name='price', value=price)
+            div.form-group
+                label.pigeonAttr(for='gender') Pigeon gender
+                select#gender(name='gender')
+                    option(value="male" selected=gender=="male") Male
+                    option(value="female" selected=gender=="female") Female
+            input(type="submit")
+        script.
+            document.forms['PigeonForm'].addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                // TODO do something here to show user that form is being submitted
+                fetch(event.target.action, {
+                    method: 'PUT',
+                    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                }).then((resp) => {
+                    return resp.json(); // or resp.text() or whatever the server sends
+                }).then((body) => {
+                    alert("Save succeded")
+                    // TODO handle body
+                }).catch((error) => {
+                    // TODO handle error
+                    alert("Save failed " + error )
+                });
+            });

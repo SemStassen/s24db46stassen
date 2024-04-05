@@ -21,7 +21,4 @@ router.get("/pigeons/:id", pigeon_controller.pigeon_detail);
 // GET request for list of all Pigeon items.
 router.get("/pigeons", pigeon_controller.pigeon_list);
 
-// GET detail pigeon page
-router.get("/detail", pigeon_controller.pigeon_view_one_page);
-
 module.exports = router;

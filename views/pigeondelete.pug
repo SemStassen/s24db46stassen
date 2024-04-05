@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    h1= title
+
+    if (toShow == null)
+        h2 No instance to delete
+    else
+        - let pigeonid = toShow._id
+        - let breed = toShow.breed
+        - let price = toShow.price
+        - let gender = toShow.gender
+        script let actionId = "#{pigeonid}"
+        div
+            div.row
+                div(class='pigeonAttr mr-3') Pigeon ID is:
+                div #{pigeonid}
+            div.row
+                div(class='pigeonAttr mr-3') Pigeon Breed is:
+                div #{breed}
+            div.row
+                div(class='pigeonAttr mr-3') Pigeon Price is:
+                div #{price}
+            div.row
+                div(class='pigeonAttr mr-3') Pigeon Gender is:
+                div #{gender}
+
+        button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+        script.
+            function cancel() {
+                // Go back to the home page for the costume collection
+                    window.location.href='/pigeons'
+            }
+        script.
+            function deleteOnid() {
+                console.log("starting delete")
+                // delete first
+                fetch(`/resource/pigeons/${actionId}`, {
+                   method: 'DELETE' // Don't need a body for the delete
+                }).then((resp) => {
+                    return resp.json(); // or resp.text() or whatever the server sends
+                }).then((body) => {
+                    alert("Delete succeded")
+                    window.location.href='/pigeons'
+                    // TODO handle body
+                }).catch((error) => {
+                    // TODO handle error
+                    alert("Delete failed " + error )
+                });
+            }

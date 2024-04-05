@@ -1,21 +1,27 @@
 extends layout
 
 block content
-    h1= title
-    - let pigeonid = toShow._id
-    - let breed = toShow.breed
-    - let price = toShow.price
-    - let gender = toShow.gender
-    div
-        div.row
-            div(class='pigeonAttr mr-3') Pigeon ID is:
-            div #{pigeonid}
-        div.row
-            div(class='pigeonAttr mr-3') Pigeon Breed is:
-            div #{breed}
-        div.row
-            div(class='pigeonAttr mr-3') Pigeon Price is:
-            div #{price}
-        div.row
-            div(class='pigeonAttr mr-3') Pigeon Gender is:
-            div #{gender}
+    
+    h1(class="mb-5")= title
+
+    if (toShow == null)
+        h2 No instance to view
+    else 
+        - let pigeonid = toShow._id
+        - let breed = toShow.breed
+        - let price = toShow.price
+        - let gender = toShow.gender
+
+        div(class="p-3 pt-4 border border-3 rounded row g-4")
+            div(class="col-6 col-lg-3 mt-0")
+                div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon ID is:
+                div(class="fw-bold fs-5 text-break") #{pigeonid}
+            div(class="col-6 col-lg-3 mt-0")
+                div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon Breed is:
+                div(class="fw-bold fs-5 text-break") #{breed}
+            div(class="col-6 col-lg-3 mt-0")
+                div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon Price is:
+                div(class="fw-bold fs-5 text-break") #{price}
+            div(class="col-6 col-lg-3 mt-0")
+                div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon Gender is:
+                div(class="fw-bold fs-5 text-break") #{gender}
