@@ -1,21 +1,23 @@
 extends layout
 
 block content
-  h1= title
+  h1(class="mb-4")= title
 
-  - 
-    const items = results
+  - const items = results
 
   div.container-fluid
-    div.row
+    div(class="row")
       each pigeon, index in items
-        div(class="col-sm-2", onClick=`buy(${index})`)
+        - let destination = `dispatch(\"/pigeons/update?id=${pigeon._id}\")`
+        div(class="col-sm-2")
           p Breed: #{pigeon.breed}
           p Gender: #{pigeon.gender}
           p Price: #{pigeon.price}
-  script. 
-    function buy(index) {
-      alert(`You purchased item ${index}`)
-    }
+          button(class="btn btn-primary", onclick=destination) Update
+
+    script.
+      function dispatch(path){
+        window.location.href=path
+      }
 
 
