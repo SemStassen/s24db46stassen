@@ -44,3 +44,8 @@ block content
                     alert("Save failed " + error )
                 });
             });
+        div(class="row mt-4")
+            div(class="d-flex flex-row gap-3")
+                a(class="btn btn-secondary" href=`/pigeons`) Overview
+                a(class="btn btn-primary" href=`/pigeons/detail/?id=${pigeonid}`) Details
+                a(class="btn btn-danger" href=`/pigeons/delete/?id=${pigeonid}`) Delete

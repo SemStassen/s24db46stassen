@@ -11,7 +11,8 @@ block content
         - let breed = toShow.breed
         - let price = toShow.price
         - let gender = toShow.gender
-
+        script let pigeonId = pigeonid
+        
         div(class="p-3 pt-4 border border-3 rounded row g-4")
             div(class="col-6 col-lg-3 mt-0")
                 div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon ID is:
@@ -25,3 +26,10 @@ block content
             div(class="col-6 col-lg-3 mt-0")
                 div(class='bg-info fs-6 p-1 mb-2 rounded-1') Pigeon Gender is:
                 div(class="fw-bold fs-5 text-break") #{gender}
+        div(class="row mt-4")
+            div(class="d-flex flex-row gap-3")
+                a(class="btn btn-secondary" href=`/pigeons`) Overview
+                a(class="btn btn-warning" href=`/pigeons/update/?id=${pigeonid}`) Update
+                a(class="btn btn-danger" href=`/pigeons/delete/?id=${pigeonid}`) Delete
+            
+        
